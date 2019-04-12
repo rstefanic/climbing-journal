@@ -48,14 +48,14 @@ app.post('/api/entries/', (req, res) => {
 app.put('/api/entries/:id', (req, res) => {
 	const id = parseInt(req.params.id);
 	return db.entries.findByPk(id)
-		.then(entry => {
-			const { date, entryField, climbing_time,
+		.then(entryToUpdate => {
+			const { date, entry, climbing_time,
 				warmup_time, accomplishment,
 				current_goal, weight } = req.body;
-			return entry.update({ date, entryField, climbing_time,
-						warmup_time, accomplishment,
+			return entryToUpdate.update({ date, entry, 
+						climbing_time, warmup_time, accomplishment,
 						current_goal, weight })
-					.then(() => res.send(entry))
+					.then(() => res.send(entryToUpdate))
 					.catch(err => {
 						console.log("*** Error " +
 							"updating contact",
