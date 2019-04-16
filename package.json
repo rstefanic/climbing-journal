@@ -2,7 +2,7 @@
   "name": "climbing-journal",
   "version": "1.0.0",
   "description": "An app to journal my climbing.",
-  "main": "index.js",
+  "main": "site.js",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
@@ -15,7 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node site.js"
   },
   "author": "Robert Stefanic",
   "license": "MIT"

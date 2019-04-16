@@ -1,6 +1,5 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import JournalEntry from './JournalEntry.js';
 
 class App extends React.Component {
@@ -15,7 +14,6 @@ class App extends React.Component {
 		fetch('http://localhost:3001/api/entries')
 			.then(entries => entries.json())
 			.then(data => {
-				console.log(data);
 				this.setState({ allEntries: data });
 			});
 	}
@@ -23,7 +21,12 @@ class App extends React.Component {
 	render() {
 
 		const entries = this.state.allEntries.map(entry => {
-			return <JournalEntry key={ entry.id } id={ entry.id } date={ entry.date } />;
+			return <JournalEntry 
+				key={ entry.id } 
+				id={ entry.id } 
+				date={ entry.date } 
+				climbingTime={ entry.climbing_time}
+				/>;
 		});
 
 		return (
@@ -32,7 +35,6 @@ class App extends React.Component {
 					This is a primary alert!
 				</Alert>
 				<h1>Hello!</h1>
-				<Button variant="secondary">Click me</Button>
 				{ entries }
 			</div>
 		);
