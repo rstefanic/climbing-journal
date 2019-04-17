@@ -54,7 +54,7 @@ class App extends React.Component {
 
         return (
             <div>
-                { this.state.showModal && <EntryInfo closeModal={ this.closeModal }/> }
+                { this.state.showModal && <EntryInfo id={ this.state.currentModalId } closeModal={ this.closeModal }/> }
                 <Alert variant='primary'>
                     This is a primary alert!
                 </Alert>
