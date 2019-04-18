@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import './EntryInfo.css';
 
 class EntryInfo extends React.Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class EntryInfo extends React.Component {
             id: this.props.id,
             loading: true,
             showDeleteConfirmation: false,
-            deleteConfirmationText: ""
+            deleteConfirmationText: "",
+            deleteBorderColor: "red"
         };
 
         this.deleteConfirmation = this.deleteConfirmation.bind(this);
@@ -54,6 +56,9 @@ class EntryInfo extends React.Component {
 
     render() {
         const displayDate = new Date(this.state.date).toDateString();
+        const deleteConfirmationClass = 
+            this.state.deleteConfirmationText === displayDate ? 
+            "approved-text" : "invalid-text";
 
         return (
             <Modal 
@@ -83,6 +88,7 @@ class EntryInfo extends React.Component {
                                 Type the date exactly as it appears to delete this entry.
                             </p>
                             <input type="text" 
+                                className={ deleteConfirmationClass }
                                 onChange={ this.handleTextChange } 
                                 value={ this.state.deleteTextConfirmation } 
                             />

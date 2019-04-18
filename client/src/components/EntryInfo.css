@@ -1,0 +1,9 @@
+.invalid-text {
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, .3);
+}
+
+.approved-text {
+    border: 2px solid green;
+    background-color: rgba(0, 255, 0, .3);
+}
