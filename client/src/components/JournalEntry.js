@@ -9,11 +9,6 @@ class JournalEntry extends React.Component {
             id: this.props.id,
             climbingTime: this.props.climbingTime
         };
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        console.log("Clicked " + this.state.id);
     }
 
     render() {

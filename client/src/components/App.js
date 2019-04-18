@@ -12,10 +12,21 @@ class App extends React.Component {
             loading: true,
             showModal: false,
             allEntries: []
-        }
+        };
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.fetchAllEntries = this.fetchAllEntries.bind(this);
+    }
+
+    fetchAllEntries() {
+        fetch('http://localhost:3001/api/entries')
+            .then(entries => entries.json())
+            .then(data => {
+                this.setState({ allEntries: data });
+            });
+
+        this.setState({ loading: false });
     }
 
     openModal(modalId) {
@@ -26,21 +37,19 @@ class App extends React.Component {
     }
 
     closeModal() {
-        this.setState({ showModal: false });
+        this.setState({ 
+            showModal: false,
+            loading: true
+        });
+
+        this.fetchAllEntries();
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/api/entries')
-            .then(entries => entries.json())
-            .then(data => {
-                this.setState({ allEntries: data });
-            });
-
-        this.setState({ loading: false });
+        this.fetchAllEntries();
     }
 
     render() {
-
         const entries = this.state.allEntries.map(entry => {
             return <JournalEntry 
                 key={ entry.id } 
@@ -48,7 +57,6 @@ class App extends React.Component {
                 date={ entry.date } 
                 climbingTime={ entry.climbing_time}
                 openModal={ this.openModal }
-                closeModal={ this.closeModal }
                 />;
         });
 
