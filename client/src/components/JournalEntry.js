@@ -19,7 +19,7 @@ class JournalEntry extends React.Component {
                 bg="light" 
                 style={{ 
                     width: '18rem', height: '10rem',
-                    margin: '2rem', display: 'inline-block' 
+                    margin: '2rem auto', display: 'inline-block' 
                 }}
                 onClick={ () => { this.props.openView(this.state.id) }}>
                 <Card.Header>{ displayDate }</Card.Header>
