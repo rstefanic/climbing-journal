@@ -1,0 +1,11 @@
+body {
+    background-color: #dedede;
+    display: block;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+h1 {
+    display: block;
+    margin: 0 2rem;
+}

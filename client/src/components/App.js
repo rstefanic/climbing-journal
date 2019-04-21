@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import JournalEntry from './JournalEntry';
 import EditEntry from './EditEntry';
 import ShowEntry from './ShowEntry';
+import './App.css';
 
 class App extends React.Component {
     constructor() {
@@ -142,13 +143,20 @@ class App extends React.Component {
                     <Alert variant={ this.state.alertLevel }>{ this.state.alertMessage }</Alert>
                 }
 
-                <Row>
-                <Col xs={6}>
-                    <h1>Climbing Journal</h1>
-                </Col>
-                <Col xs={6}>
-		            <Button variant="secondary" size="lg" onClick={ this.openEdit }>Add New Entry</Button>
-                </Col>
+                <Row style={{ marginTop: "5%" }}>
+                    <Col xs={6}>
+                        <h1>Climbing Journal</h1>
+                    </Col>
+                    <Col xs={6}>
+		                <Button 
+                            style={{ display: 'block', margin: '0 auto' }}
+                            variant="secondary" 
+                            size="lg" 
+                            onClick={ this.openEdit }
+                        >
+                            Add New Entry
+                        </Button>
+                    </Col>
                 </Row>
                 <Row>
                     { this.state.loading && (
