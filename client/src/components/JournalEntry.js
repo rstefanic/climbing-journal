@@ -21,7 +21,7 @@ class JournalEntry extends React.Component {
                     width: '18rem', height: '10rem',
                     margin: '2rem', display: 'inline-block' 
                 }}
-                onClick={ () => { this.props.openModal(this.state.id) }}>
+                onClick={ () => { this.props.openView(this.state.id) }}>
                 <Card.Header>{ displayDate }</Card.Header>
                 <Card.Body>
                 <Card.Title>Time Climbed:</Card.Title> { this.state.climbingTime }

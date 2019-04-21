@@ -12,7 +12,9 @@ class EditEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
+            id: this.props.editId,
+            method: 'POST',
+            fetchURL: 'http://localhost:3001/api/entries/',
             editEntry: false,
             date: new Date(),
             entry: "",
@@ -29,7 +31,33 @@ class EditEntry extends React.Component {
         this.saveEntry = this.saveEntry.bind(this);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        // If the id is -1, then it's a new entry
+        if (this.state.id === -1) {
+            return;
+        }
+        
+        // Otherwise we're editing an existing entry, and we have to 
+        // grab the entry and change the method when we send
+        // information to the server
+
+        fetch(this.state.fetchURL + this.state.id)
+            .then(entry => entry.json())
+            .then(data => {
+                this.setState({
+                    date: new Date(data.date),
+                    entry: data.entry,
+                    climbingTime: data.climbing_time,
+                    warmupTime: data.warmup_time,
+                    accomplishment: data.accomplishment,
+                    currentGoal: data.current_goal,
+                    weight: data.weight,
+                    loading: false,
+                    method: 'PUT',
+                    fetchURL: 'http://localhost:3001/api/entries/' + this.state.id
+            })
+        });
+    }
 
     handleDateChange(newDate) {
         this.setState({
@@ -44,9 +72,8 @@ class EditEntry extends React.Component {
     }
 
     saveEntry() {
-        console.log("saving!"); 
-        fetch("http://localhost:3001/api/entries", { 
-                method: 'POST',
+        fetch(this.state.fetchURL, { 
+                method: this.state.method,
                 body: JSON.stringify({
                     date: this.state.date,
                     entry: this.state.entry,
@@ -61,6 +88,22 @@ class EditEntry extends React.Component {
                 }
             })
             .then(res => { return res.json() })
+            .then(data => { 
+                if(this.state.method === 'POST') {
+                    this.props.displayAlert("New entry for " + 
+                        this.state.date.toDateString() + 
+                        " has successfully been created.",
+                        "success"
+                    );
+                }
+                else {
+                    this.props.displayAlert("Entry for " + 
+                        this.state.date.toDateString() + 
+                        " has successfully been updated.",
+                        "success"
+                    );
+                }
+            })
             .then(() => { this.props.closeEdit() });
     }
 

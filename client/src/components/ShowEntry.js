@@ -39,13 +39,16 @@ class ShowEntry extends React.Component {
     }
 
     deleteConfirmation() {
+        const displayDate = new Date(this.state.date).toDateString();
         if (this.state.showDeleteConfirmation && 
-            this.state.deleteConfirmationText === 
-            new Date(this.state.date).toDateString()) {
+            this.state.deleteConfirmationText === displayDate) {
 
             fetch("http://localhost:3001/api/entries/" + this.state.id, { method: 'DELETE' })
                 .then(res => { 
-                    this.props.closeModal();
+                    this.props.displayAlert("Entry for " + displayDate + 
+                        " has successfully been deleted",
+                        "danger");
+                    this.props.closeView();
                 });
         }
         else {
@@ -64,7 +67,7 @@ class ShowEntry extends React.Component {
                 show={true}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
-                onHide={ this.props.closeModal }
+                onHide={ this.props.closeView }
                 centered
             >
                 <Modal.Header closeButton>
@@ -95,8 +98,8 @@ class ShowEntry extends React.Component {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={ this.props.closeModal }>Close</Button>
-                    <Button variant="info" onClick={ this.props.editEntry }>Edit</Button>
+                    <Button variant="primary" onClick={ this.props.closeView }>Close</Button>
+                    <Button variant="info" onClick={ () => { this.props.editEntry(this.state.id) }}>Edit</Button>
                     <Button variant="danger" onClick={ this.deleteConfirmation }>Delete</Button>
                 </Modal.Footer>
             </Modal>
