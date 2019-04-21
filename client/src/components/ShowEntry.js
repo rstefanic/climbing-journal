@@ -1,17 +1,16 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './EntryInfo.css';
+import './ShowEntry.css'
 
-class EntryInfo extends React.Component {
+class ShowEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: this.props.id,
             loading: true,
             showDeleteConfirmation: false,
-            deleteConfirmationText: "",
-            deleteBorderColor: "red"
+            deleteConfirmationText: ""
         };
 
         this.deleteConfirmation = this.deleteConfirmation.bind(this);
@@ -96,7 +95,8 @@ class EntryInfo extends React.Component {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={ this.props.closeModal }>Close</Button>
+                    <Button variant="primary" onClick={ this.props.closeModal }>Close</Button>
+                    <Button variant="info" onClick={ this.props.editEntry }>Edit</Button>
                     <Button variant="danger" onClick={ this.deleteConfirmation }>Delete</Button>
                 </Modal.Footer>
             </Modal>
@@ -104,4 +104,4 @@ class EntryInfo extends React.Component {
     }
 }
 
-export default EntryInfo;
+export default ShowEntry;

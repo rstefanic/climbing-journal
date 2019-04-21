@@ -1,0 +1,13 @@
+.row {
+    margin-bottom: 2%;
+}
+
+.row label {
+    text-align: right;
+}
+
+.row textarea {
+    height: 200px;
+    resize: none;
+    width: 89%;
+}

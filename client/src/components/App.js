@@ -1,8 +1,10 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import JournalEntry from './JournalEntry';
-import EntryInfo from './EntryInfo'
+import EditEntry from './EditEntry';
+import ShowEntry from './ShowEntry';
 
 class App extends React.Component {
     constructor() {
@@ -10,12 +12,16 @@ class App extends React.Component {
         this.state = {
             currentModalId: -1,
             loading: true,
-            showModal: false,
+            showEntry: false,
+            editEntry: false,
             allEntries: []
         };
 
         this.openModal = this.openModal.bind(this);
+        this.openEdit = this.openEdit.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.closeEdit = this.closeEdit.bind(this);
+        this.editEntry = this.editEntry.bind(this);
         this.fetchAllEntries = this.fetchAllEntries.bind(this);
     }
 
@@ -31,14 +37,14 @@ class App extends React.Component {
 
     openModal(modalId) {
         this.setState({ 
-            showModal: true,
+            showEntry: true,
             currentModalId: modalId
         });
     }
 
     closeModal() {
         this.setState({ 
-            showModal: false,
+            showEntry: false,
             loading: true
         });
 
@@ -47,6 +53,25 @@ class App extends React.Component {
 
     componentDidMount() {
         this.fetchAllEntries();
+    }
+
+    openEdit() {
+        this.setState({
+            showEdit: true
+        });
+    }
+
+    closeEdit() {
+        this.setState({
+            showEdit: false,
+            loading: true
+        });
+
+        this.fetchAllEntries();
+    }
+
+    editEntry(idToEdit) {
+        
     }
 
     render() {
@@ -62,11 +87,19 @@ class App extends React.Component {
 
         return (
             <div>
-                { this.state.showModal && <EntryInfo id={ this.state.currentModalId } closeModal={ this.closeModal }/> }
+                { this.state.showEntry && <ShowEntry id={ this.state.currentModalId } 
+                                            closeModal={ this.closeModal }
+                                            editEntry={ this.editEntry }
+                                          /> 
+                }
+                { this.state.showEdit && <EditEntry closeEdit={ this.closeEdit }/> }
+
+
                 <Alert variant='primary'>
                     This is a primary alert!
                 </Alert>
                 <h1>Hello!</h1>
+		<Button variant="secondary" size="lg" onClick={ this.openEdit }>Add New Entry</Button>
                 { this.state.loading && (
                         <Spinner animation="grow" variant="success">
                             <span className="sr-only">Loading...</span>
