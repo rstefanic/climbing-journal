@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./models');
 const cors = require('cors');
@@ -8,7 +9,7 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(path.join(__dirname + '/client/build')));
 app.use(cors()); // Only to be used for development
 
 app.get('/api/entries', (req, res) => {
@@ -82,8 +83,10 @@ app.delete('/api/entries/:id', (req, res) => {
         });
 });
 
-app.get('/', (req, res) => {
-    res.send('Hi');
+// If the request is different from any of the ones above, 
+// send the client the react app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(port, () => {
