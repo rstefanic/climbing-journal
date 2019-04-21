@@ -54,7 +54,8 @@ class EditEntry extends React.Component {
                     weight: data.weight,
                     loading: false,
                     method: 'PUT',
-                    fetchURL: 'http://localhost:3001/api/entries/' + this.state.id
+                    fetchURL: 'http://localhost:3001/api/entries/' + this.state.id,
+                    editEntry: true
             })
         });
     }
@@ -109,7 +110,7 @@ class EditEntry extends React.Component {
 
     render() {
         const title = this.state.editEntry ?
-            new Date(this.state.date).toDateString() :
+            "Edit entry for " + new Date(this.state.date).toDateString() :
             "Add New Entry";
 
         return (
